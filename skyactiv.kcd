@@ -1,0 +1,159 @@
+<!-- 
+	This is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+--> 
+<NetworkDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://kayak.2codeornot2code.org/1.0" xsi:noNamespaceSchemaLocation="Definition.xsd">
+	<Document name="Mazda SkyActiv CANbus" version="0.01" date="2016-12-11">
+	</Document> 
+	<Node id="1" name="Powertrain Control Module"/>
+	<Node id="2" name="Start Stop Unit"/>
+	<Node id="3" name="Traction Control"/>
+	<Node id="4" name="Sophisticated Airbag Sensor"/>
+	<Node id="5" name="Electric Power Steering"/>
+
+	<Bus name="HS-CAN" baudrate="500000">
+
+		 <Message id="0x202" name="speed">
+		 	<Producer>
+		 		<NodeRef id="1"/>
+		 	</Producer>
+		 	<Signal name="RPM" offset="12" length="13" endianess="big">
+		 		<Value slope="2" intercept="0" unit="rev/min"/>
+		 	</Signal>
+		 	<Signal name="Speedometer Enable" offset="15"/>
+		 	<Signal name="SpeedKm" offset="31" length="15" endianess="big">
+		 		<Value slope="0.00390625" intercept="0" unit="km/h"/>
+		 	</Signal>
+		 </Message>
+		
+		 <Message id="0x228" name="transmission">
+		 	<Producer>
+		 		<NodeRef id="1"/>
+		 	</Producer>
+		 	<Signal name="Gear" offset="3" length="4" endianess="big">
+				<LabelSet>
+					<Label name="1st" value="1"/>
+					<Label name="2nd" value="2"/>
+					<Label name="3rd" value="3"/>
+					<Label name="4th" value="4"/>
+					<Label name="5th" value="5"/>
+					<Label name="6th" value="6"/>
+					<Label name="7th" value="7"/>
+				</LabelSet>
+		 	</Signal>
+		 	<Signal name="Mode" offset="7" length="3" endianess="big">
+				<LabelSet>
+					<Label name="Park" value="1"/>
+					<Label name="Reverse" value="2"/>
+					<Label name="Neutral" value="3"/>
+					<Label name="Drive" value="4"/>
+				</LabelSet>
+		 	</Signal>
+		 	<Signal name="Automatic Transaxle Manual" offset="8"/>
+		 	<Signal name="Automatic Transaxle Warning" offset="9"/>
+		 </Message>
+
+		 <Message id="0x09A" name="lights">
+		 	<Producer>
+		 		<NodeRef id="2"/>
+		 	</Producer>
+		 	<Signal name="Brake Warning" offset="9"/>
+		 	<Signal name="Left Turn" offset="21"/>
+		 	<Signal name="Right Turn" offset="20"/>
+		 	<Signal name="Lights On" offset="19"/>
+		 	<Signal name="Low Washer Fluid Level Warning" offset="25"/>
+		 	<Signal name="Headlight High Beams On" offset="31"/>
+		 </Message>
+
+		 <Message id="0x420" name="temperature">
+		 	<Producer>
+		 		<NodeRef id="1"/>
+		 	</Producer>
+		 	<Signal name="Coolant Temperature" offset="7" length="8" endianess="big">
+				<LabelSet>
+					<LabelGroup name="Blue Coolant Temp Light" from="0" to="90"/>
+					<Label name="Red Coolant Temp Light" value="255"/>
+				</LabelSet>
+		 	</Signal>
+		 	<Signal name="Charging System Malfunction" offset="38"/>
+		 	<Signal name="Check Fuel Cap" offset="40"/>
+		 	<Signal name="Low Engine Oil Pressure" offset="43"/>
+		 	<Signal name="Outdoor Temperature" offset="63" length="9" endianess="big">
+		 		<Value slope="0.25" intercept="-512" unit="cel" min="-40" max="160"/>
+		 	</Signal>
+		 </Message>
+
+		 <Message id="415" name="traction">
+		 	<Producer>
+		 		<NodeRef id="3"/>
+		 	</Producer>
+		 	<Signal name="Antilock Brake System (ABS) Malfunction" offset="1" length="2" endianess="big">
+				<LabelSet>
+					<Label name="off" value="0"/>
+					<Label name="solid" value="1"/>
+					<Label name="slow blink" value="2"/>
+					<Label name="fast blink" value="3"/>
+				</LabelSet>
+		 	</Signal>
+		 	<Signal name="Brake Warning" offset="2"/>
+		 	<Signal name="Dynamic Stability Control (DSC) OFF" offset="3"/>
+		 	<Signal name="Traction Control System (TCS) / Dynamic Stability Control (DSC)" offset="6" length="2" endianess="big">
+				<LabelSet>
+					<Label name="off" value="0"/>
+					<Label name="solid" value="1"/>
+					<Label name="slow blink" value="2"/>
+					<Label name="fast blink" value="3"/>
+				</LabelSet>
+		 	</Signal>
+		 	<Signal name="loud beep" offset="28"/>
+		 	<Signal name="Tire Pressure Monitoring System (TPMS) Warning" offset="30" length="2" endianess="big">
+				<LabelSet>
+					<Label name="off" value="0"/>
+					<Label name="solid" value="1"/>
+					<Label name="slow blink" value="2"/>
+					<Label name="fast blink" value="3"/>
+				</LabelSet>
+		 	</Signal>
+		 	<Signal name="momentary beep with TPMS double-blink" offset="31"/>
+		 </Message>
+
+		 <Message id="0x165" name="cruise control">
+		 	<Producer>
+		 		<NodeRef id="1"/>
+		 	</Producer>
+		 	<Signal name="Cruise Main Indicator" offset="5"/>
+		 </Message>
+
+		 <Message id="0x274" name="lock">
+		 	<Producer>
+		 		<NodeRef id="2"/>
+		 	</Producer>
+		 	<Signal name="Security Indicator" offset="0"/>
+		 	<Signal name="Security Indicator fast blink" offset="3"/>
+		 	<Signal name="KEY Indicator GREEN command" offset="11" length="4" endianess="big"/>
+		 	<Signal name="KEY Warning RED command" offset="12" length="4" endianess="big"/>
+		 </Message>
+
+		 <Message id="0x0FD" name="Master Warning">
+		 </Message>
+
+		 <Message id="0x340" name="safety">
+		 	<Producer>
+		 		<NodeRef id="4"/>
+		 	</Producer>
+		 	<Signal name="Seat Belt Unbuckled/Malfunction" offset="28"/>
+		 </Message>
+
+		 <Message id="0x240" name="power steering">
+		 	<Producer>
+		 		<NodeRef id="5"/>
+		 	</Producer>
+		 </Message>
+	</Bus>
+
+	<Bus name="MS-CAN" baudrate="250000">
+	</Bus>
+
+</NetworkDefinition>
+
