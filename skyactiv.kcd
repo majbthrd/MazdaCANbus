@@ -133,6 +133,8 @@
 		 	<Signal name="Security Indicator fast blink" offset="3"/>
 		 	<Signal name="KEY Indicator GREEN command" offset="11" length="4" endianess="big"/>
 		 	<Signal name="KEY Warning RED command" offset="12" length="4" endianess="big"/>
+		 	<Signal name="INFO- keypress" offset="58"/>
+		 	<Signal name="INFO+ keypress" offset="59"/>
 		 </Message>
 
 		 <Message id="0x0FD" name="Master Warning">
