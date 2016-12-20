@@ -122,7 +122,15 @@
 		 	<Producer>
 		 		<NodeRef id="1"/>
 		 	</Producer>
-		 	<Signal name="Cruise Main Indicator" offset="5"/>
+		 	<Signal name="Cruise Main Indicator" offset="6" length="3" endianess="big">
+				<LabelSet>
+					<Label name="off" value="0"/>
+					<Label name="ready, not active (yellow)" value="2"/>
+					<Label name="ready, value set (yellow)" value="3"/>
+					<Label name="active, value set (green)" value="5"/>
+				</LabelSet>
+		 	</Signal>
+		 	<Signal name="cruise speed" offset="16" length="8" endianess="big"/>
 		 </Message>
 
 		 <Message id="0x274" name="lock">
