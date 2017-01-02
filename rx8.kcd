@@ -1,0 +1,32 @@
+<!-- 
+	This is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+--> 
+<NetworkDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://kayak.2codeornot2code.org/1.0" xsi:noNamespaceSchemaLocation="Definition.xsd">
+	<Document name="Mazda RX-8 CANbus" version="0.01" date="2017-01-01">
+	</Document> 
+	<Node id="1" name="Powertrain Control Module"/>
+	<Node id="2" name="Instrument Cluster"/>
+
+	<Bus name="HS-CAN" baudrate="500000">
+
+		 <Message id="0x201" name="speed">
+		 	<Producer>
+		 		<NodeRef id="1"/>
+		 	</Producer>
+		 	<Signal name="RPM" offset="15" length="16" endianess="big">
+		 		<Value slope="0.25" intercept="0" unit="rev/min"/>
+		 	</Signal>
+		 	<Signal name="SpeedKm" offset="47" length="16" endianess="big">
+		 		<Value slope="0.01" intercept="-10000" unit="km/h"/>
+		 	</Signal>
+		 </Message>
+		
+		 <Message id="0x430" name="instrument cluster">
+		 </Message>
+		
+	</Bus>
+
+</NetworkDefinition>
+

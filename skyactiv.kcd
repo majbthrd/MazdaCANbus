@@ -19,7 +19,7 @@
 		 		<NodeRef id="1"/>
 		 	</Producer>
 		 	<Signal name="RPM" offset="12" length="13" endianess="big">
-		 		<Value slope="2" intercept="0" unit="rev/min"/>
+		 		<Value slope="0.5" intercept="0" unit="rev/min"/>
 		 	</Signal>
 		 	<Signal name="Speedometer Enable" offset="15"/>
 		 	<Signal name="SpeedKm" offset="31" length="15" endianess="big">
