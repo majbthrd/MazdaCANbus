@@ -11,6 +11,7 @@
 	<Node id="3" name="Traction Control"/>
 	<Node id="4" name="Sophisticated Airbag Sensor"/>
 	<Node id="5" name="Electric Power Steering"/>
+	<Node id="6" name="Rear Body Control Module"/>
 
 	<Bus name="HS-CAN" baudrate="500000">
 
@@ -162,7 +163,20 @@
 		 </Message>
 	</Bus>
 
-	<Bus name="MS-CAN" baudrate="250000">
+	<Bus name="MS-CAN" baudrate="125000">
+
+		 <Message id="0x43E" name="doors">
+		 	<Producer>
+		 		<NodeRef id="6"/>
+		 	</Producer>
+		 	<Signal name="Door Ajar" offset="36" length="4" endianess="big">
+				<LabelSet>
+					<Label name="Door Ajar Indicator" value="13"/>
+					<Label name="Door Ajar Indicator" value="14"/>
+				</LabelSet>
+		 	</Signal>
+		 	<Signal name="continuous audible tone" offset="59"/>
+		 </Message>
 	</Bus>
 
 </NetworkDefinition>
